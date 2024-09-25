@@ -63,16 +63,6 @@ const Home = ({ churead, editedItem, onEdit }) => {
     setFeedList(filterList);
   };
 
-  const getData = async () => {
-    // fetch("https://jsonplaceholder.typicode.com/posts")
-    //   .then((response) => response.json())
-    //   .then((json) => console.log(json));
-    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-    console.log("🚀 ~ getData ~ response:", response);
-    const data = await response.json();
-    console.log("🚀 data:", data);
-  };
-
   // 진입시 딱 한번 실행
   useEffect(() => {
     if (!churead) return;
@@ -107,9 +97,6 @@ const Home = ({ churead, editedItem, onEdit }) => {
       <Header />
       {/* END: 헤더 영역 */}
       <main className="h-full overflow-auto">
-        <button type="button" onClick={getData}>
-          데이터 가져오기
-        </button>
         <div>
           {/* START: 피드 영역 */}
           <ul>
