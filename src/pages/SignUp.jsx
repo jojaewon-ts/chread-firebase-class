@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../components/InputField";
 import LoginButton from "../components/LoginButton";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
   // logic
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleInputChange = (inputValue, field) => {
+    if (field === "name") {
+      setName(inputValue);
+    } else if (field === "email") {
+      setEmail(inputValue);
+    } else {
+      setPassword(inputValue);
+    }
+  };
+
+  const handleSignUp = () => {
+    console.log("name", name);
+    console.log("email", email);
+    console.log("password", password);
+  };
 
   // view
   return (
@@ -17,10 +36,18 @@ const SignUp = () => {
           Churead에서 소통해보세요
         </h3>
         {/* START: 폼 영역 */}
-        <form id="login-form" className="text-center flex flex-col gap-2">
-          <InputField type="text" field="name" />
-          <InputField type="text" field="email" />
-          <InputField type="password" field="password" />
+        <form
+          id="login-form"
+          className="text-center flex flex-col gap-2"
+          onSubmit={handleSignUp}
+        >
+          <InputField type="text" field="name" onChange={handleInputChange} />
+          <InputField type="text" field="email" onChange={handleInputChange} />
+          <InputField
+            type="password"
+            field="password"
+            onChange={handleInputChange}
+          />
           <LoginButton category="login" text="Create Account" />
         </form>
         {/* END: 폼 영역 */}

@@ -4,8 +4,9 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Post from "./pages/Post";
 import Profile from "./pages/Profile";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Edit from "./pages/Edit";
+import { auth } from "./firebase";
 
 function App() {
   // logic
@@ -13,10 +14,26 @@ function App() {
   const [editItem, setEditItem] = useState(null);
   const [editedItem, setEditedItem] = useState(null);
 
+  // 로딩 상태
+  const [isLoading, setIsLoading] = useState(true);
+
   const handlePost = (churead) => {
     // 매개변수, parameter
     setChuread(churead);
   };
+
+  const init = async () => {
+    // 로그인 상태 변화 감지하기
+    await auth.authStateReady();
+    console.log("인증 완료", auth);
+    // 인증 준비 다 되면 로딩false
+    setIsLoading(false);
+  };
+
+  // 페이지 진입 시 딱 한번
+  useEffect(() => {
+    init();
+  }, []);
 
   // view
   return (

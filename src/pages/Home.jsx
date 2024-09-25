@@ -11,30 +11,9 @@ const Home = ({ churead, editedItem, onEdit }) => {
 
   const [feedList, setFeedList] = useState(initialFeedList);
 
-  const delay = (ms) => {
-    return new Promise((res) => setTimeout(res, ms));
-  };
-
-  const delayCall = async () => {
-    console.log("1");
-    console.log("2");
-    await delay(2000);
-    console.log("3");
-  };
-
-  delayCall();
-
-  // delay(2000)
-  //   .then(() => {
-  //     console.log("2");
-  //   })
-  //   .then(() => {
-  //     console.log("3");
-  //   });
-
-  // 1
-  // 3
-  // 2
+  // const delay = (ms) => {
+  //   return new Promise((res) => setTimeout(res, ms));
+  // };
 
   /**
    * 아이템 삭제하기
