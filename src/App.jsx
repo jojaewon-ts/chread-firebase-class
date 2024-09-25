@@ -36,8 +36,11 @@ function App() {
   }, []);
 
   // view
+  
   return (
-    <div className="bg-churead-black h-full text-white overflow-auto">
+   <div className="bg-churead-black h-full text-white overflow-auto">
+    {isLoading ? (
+    <p className="text-2xl">Loading...</p>) : (
       <div className="max-w-[572px] mx-auto h-full">
         <BrowserRouter>
           <Routes>
@@ -66,9 +69,9 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </BrowserRouter>
-      </div>
+      </div>)}
     </div>
   );
-}
+};
 
 export default App;

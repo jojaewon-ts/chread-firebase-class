@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import InputField from "../components/InputField";
 import LoginButton from "../components/LoginButton";
 import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../firebase";
 
 const SignUp = () => {
   // logic
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isLoading, setIsLoading] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleInputChange = (inputValue, field) => {
     if (field === "name") {
@@ -19,11 +24,31 @@ const SignUp = () => {
     }
   };
 
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault(); // 폼 제출시 새로고침 방지 메소드
+
+    setErrorMessage("");
+    
+    if (isLoading || !name || !email || !password) return;
+    
     console.log("name", name);
     console.log("email", email);
     console.log("password", password);
+    
+    setIsLoading(true);
+
+    try {
+      const credential =  await createUserWithEmailAndPassword(auth, email, password)
+
+      await updateProfile(credential.user, {
+        displayName: name
+      })
+
+    } catch (error) {
+      console.error(error.message);
+      setErrorMessage(error.message);
+    }
+
   };
 
   // view
@@ -49,6 +74,7 @@ const SignUp = () => {
             field="password"
             onChange={handleInputChange}
           />
+          {errorMessage && <p className="text-red-600">{errorMessage}</p>}
           <LoginButton category="login" text="Create Account" />
         </form>
         {/* END: 폼 영역 */}
