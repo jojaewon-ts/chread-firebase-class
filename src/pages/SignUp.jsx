@@ -19,7 +19,8 @@ const SignUp = () => {
     }
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = (event) => {
+    event.preventDefault(); // 폼 제출시 새로고침 방지 메소드
     console.log("name", name);
     console.log("email", email);
     console.log("password", password);
